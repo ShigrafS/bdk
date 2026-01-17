@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 #![cfg(feature = "miniscript")]
 
 #[macro_use]

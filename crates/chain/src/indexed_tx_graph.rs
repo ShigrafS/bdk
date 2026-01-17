@@ -109,7 +109,6 @@ where
     /// # use bdk_chain::indexed_tx_graph::ChangeSet;
     /// # use bdk_chain::indexer::keychain_txout::{KeychainTxOutIndex, DEFAULT_LOOKAHEAD};
     /// # use bdk_core::BlockId;
-    /// # use bdk_testenv::anyhow;
     /// # use miniscript::{Descriptor, DescriptorPublicKey};
     /// # use std::str::FromStr;
     /// # let persisted_changeset = ChangeSet::<BlockId, _>::default();
@@ -117,7 +116,7 @@ where
     /// # let persisted_change_desc = Some(Descriptor::<DescriptorPublicKey>::from_str("")?);
     ///
     /// let (graph, reindex_cs) =
-    ///     IndexedTxGraph::from_changeset(persisted_changeset, move |idx_cs| -> anyhow::Result<_> {
+    ///     IndexedTxGraph::from_changeset(persisted_changeset, move |idx_cs| -> Result<_, Box<dyn std::error::Error>> {
     ///         // e.g. KeychainTxOutIndex needs descriptors that weren’t in its change set.
     ///         let mut idx = KeychainTxOutIndex::from_changeset(DEFAULT_LOOKAHEAD, true, idx_cs);
     ///         if let Some(desc) = persisted_desc {
@@ -128,7 +127,7 @@ where
     ///         }
     ///         Ok(idx)
     ///     })?;
-    /// # Ok::<(), anyhow::Error>(())
+    /// # Ok::<(), Box<dyn std::error::Error>>(())
     /// ```
     pub fn from_changeset<F, E>(
         changeset: ChangeSet<A, I::ChangeSet>,

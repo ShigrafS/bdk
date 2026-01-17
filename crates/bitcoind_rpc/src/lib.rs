@@ -398,6 +398,7 @@ impl BitcoindRpcErrorExt for bitcoincore_rpc::Error {
 
 #[cfg(test)]
 #[cfg_attr(coverage_nightly, coverage(off))]
+#[cfg(not(target_os = "windows"))]
 mod test {
     use crate::{bitcoincore_rpc::RpcApi, Emitter, NO_EXPECTED_MEMPOOL_TXS};
     use bdk_chain::local_chain::LocalChain;

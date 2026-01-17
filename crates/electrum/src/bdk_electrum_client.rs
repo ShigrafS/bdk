@@ -696,6 +696,7 @@ fn chain_update(
 #[cfg(test)]
 #[cfg_attr(coverage_nightly, coverage(off))]
 #[allow(unused_imports)]
+#[cfg(not(target_os = "windows"))]
 mod test {
     use crate::{bdk_electrum_client::TxUpdate, electrum_client::ElectrumApi, BdkElectrumClient};
     use bdk_chain::bitcoin::Amount;

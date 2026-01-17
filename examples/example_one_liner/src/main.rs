@@ -1,5 +1,4 @@
 use bdk_chain::{
-    bitcoin::Network,
     keychain_txout::KeychainTxOutIndex,
     tx_graph::TxGraph,
     collections::BTreeMap,
@@ -120,6 +119,7 @@ where
 // -----------------------------------------------------------------------------
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[allow(dead_code)]
 enum MyKeychain {
     External,
     Internal,
@@ -128,7 +128,7 @@ enum MyKeychain {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     const ELECTRUM_URL: &str = "ssl://electrum.blockstream.info:60002"; // Testnet
 
-    let mut wallet_index = KeychainTxOutIndex::<MyKeychain>::new(20, true);
+    let wallet_index = KeychainTxOutIndex::<MyKeychain>::new(20, true);
     println!("Wallet index initialized.");
 
     // This descriptor is specific to Testnet.

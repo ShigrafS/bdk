@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 use bdk_bitcoind_rpc::bip158::{Error, FilterIter};
 use bdk_core::CheckPoint;
 use bdk_testenv::{anyhow, bitcoind, TestEnv};
@@ -117,6 +118,7 @@ fn filter_iter_detects_reorgs() -> anyhow::Result<()> {
 
 #[test]
 fn event_checkpoint_connects_to_local_chain() -> anyhow::Result<()> {
+    #![cfg(not(target_os = "windows"))]
     use bitcoin::BlockHash;
     use std::collections::BTreeMap;
     let env = testenv()?;

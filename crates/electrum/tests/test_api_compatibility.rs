@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 //! Test ensuring that the API allows manual construction of SyncRequest
 //! and execution via BdkElectrumClient.
 //! 

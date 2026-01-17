@@ -2,6 +2,19 @@
 
 pub mod utils;
 
+#[cfg(feature = "electrsd")]
+mod electrsd_exports {
+    pub use electrsd;
+    pub use electrsd::bitcoind;
+    pub use electrsd::bitcoind::anyhow;
+    pub use electrsd::bitcoind::bitcoincore_rpc;
+    pub use electrsd::electrum_client;
+}
+
+#[cfg(feature = "electrsd")]
+pub use electrsd_exports::*;
+
+#[cfg(feature = "electrsd")]
 use bdk_chain::{
     bitcoin::{
         address::NetworkChecked, block::Header, hash_types::TxMerkleNode, hashes::Hash,
@@ -10,28 +23,29 @@ use bdk_chain::{
     },
     local_chain::CheckPoint,
 };
+
+#[cfg(feature = "electrsd")]
 use bitcoincore_rpc::{
     bitcoincore_rpc_json::{GetBlockTemplateModes, GetBlockTemplateRules},
     RpcApi,
 };
+#[cfg(feature = "electrsd")]
 use electrsd::bitcoind::anyhow::Context;
-
-pub use electrsd;
-pub use electrsd::bitcoind;
-pub use electrsd::bitcoind::anyhow;
-pub use electrsd::bitcoind::bitcoincore_rpc;
-pub use electrsd::electrum_client;
+#[cfg(feature = "electrsd")]
 use electrsd::electrum_client::ElectrumApi;
+#[cfg(feature = "electrsd")]
 use std::time::Duration;
 
 /// Struct for running a regtest environment with a single `bitcoind` node with an `electrs`
 /// instance connected to it.
+#[cfg(feature = "electrsd")]
 pub struct TestEnv {
     pub bitcoind: electrsd::bitcoind::BitcoinD,
     pub electrsd: electrsd::ElectrsD,
 }
 
 /// Configuration parameters.
+#[cfg(feature = "electrsd")]
 #[derive(Debug)]
 pub struct Config<'a> {
     /// [`bitcoind::Conf`]
@@ -40,6 +54,7 @@ pub struct Config<'a> {
     pub electrsd: electrsd::Conf<'a>,
 }
 
+#[cfg(feature = "electrsd")]
 impl Default for Config<'_> {
     /// Use the default configuration plus set `http_enabled = true` for [`electrsd::Conf`]
     /// which is required for testing `bdk_esplora`.
@@ -55,6 +70,7 @@ impl Default for Config<'_> {
     }
 }
 
+#[cfg(feature = "electrsd")]
 impl TestEnv {
     /// Construct a new [`TestEnv`] instance with the default configuration used by BDK.
     pub fn new() -> anyhow::Result<Self> {
@@ -315,6 +331,7 @@ impl TestEnv {
 
 #[cfg(test)]
 #[cfg_attr(coverage_nightly, coverage(off))]
+#[cfg(feature = "electrsd")]
 mod test {
     use crate::TestEnv;
     use core::time::Duration;

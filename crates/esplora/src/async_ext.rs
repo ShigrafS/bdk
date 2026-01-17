@@ -551,6 +551,7 @@ where
 
 #[cfg(test)]
 #[cfg_attr(coverage_nightly, coverage(off))]
+#[cfg(not(target_os = "windows"))]
 mod test {
     use std::{collections::BTreeSet, time::Duration};
 

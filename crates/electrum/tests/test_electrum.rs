@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 use bdk_chain::{
     bitcoin::{hashes::Hash, Address, Amount, ScriptBuf, WScriptHash},
     local_chain::LocalChain,

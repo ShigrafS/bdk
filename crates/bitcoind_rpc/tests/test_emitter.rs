@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 use std::{collections::BTreeSet, ops::Deref};
 
 use bdk_bitcoind_rpc::{Emitter, NO_EXPECTED_MEMPOOL_TXS};

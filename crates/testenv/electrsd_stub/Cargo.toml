@@ -1,0 +1,9 @@
+[package]
+name = "electrsd"
+version = "0.28.0"
+edition = "2021"
+
+[features]
+legacy = []
+bitcoind_25_0 = []
+esplora_a33e97e1 = []

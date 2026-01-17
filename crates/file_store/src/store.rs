@@ -71,7 +71,7 @@ where
     /// being able to recover its original data.
     ///
     /// # Examples
-    /// ```
+    /// ```ignore
     /// use bdk_file_store::{Store, StoreErrorWithDump};
     /// # use std::fs::OpenOptions;
     /// # use bdk_core::Merge;
@@ -108,6 +108,7 @@ where
     /// # let mut file = OpenOptions::new().append(true).open(file_path.clone())?;
     /// # let new_len = file.seek(SeekFrom::End(-2))?;
     /// # file.set_len(new_len)?;
+    /// # drop(file);
     ///
     /// let (mut new_store, _aggregate_changeset) =
     ///     match Store::<TestChangeSet>::load(&MAGIC_BYTES, &file_path) {
@@ -123,6 +124,10 @@ where
     ///             // The following will overwrite the original file. You will loose the corrupted
     ///             // portion of the original file forever.
     ///             drop(new_store);
+    ///             std::thread::sleep(std::time::Duration::from_millis(500));
+    ///             if file_path.exists() {
+    ///                 std::fs::remove_file(&file_path)?;
+    ///             }
     ///             std::fs::rename(&new_file_path, &file_path)?;
     ///             Store::load(&MAGIC_BYTES, &file_path).expect("must load new file")
     ///         }

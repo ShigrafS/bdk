@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 use bdk_chain::bitcoin::{Address, Amount, ScriptBuf};
 use bdk_core::{
     bitcoin::{

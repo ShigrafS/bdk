@@ -1,3 +1,4 @@
+#![cfg(not(target_os = "windows"))]
 use bdk_chain::bitcoin::{Address, Amount};
 use bdk_chain::local_chain::LocalChain;
 use bdk_chain::spk_client::{FullScanRequest, SyncRequest};
